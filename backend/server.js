@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
 import cors from "cors";
+import path from "path";
 import todoRoutes from "./routes/todo.route.js";
 const PORT = process.env.PORT || 5000;
 
@@ -14,12 +15,12 @@ app.use(express.json());
 
 app.use("/api/todos", todoRoutes);
 
-const __dirname = Path.resolve();
+const __dirname = path.resolve();
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(Path.join(__dirname, "/frontend/dist")));
+  app.use(express.static(path.join(__dirname, "/frontend/dist")));
   app.get("*", (req, res) => {
-    res.sendFile(Path.resolve(__dirname, "frontend", "dist", "index.html"));
+    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
   });
 }
 
